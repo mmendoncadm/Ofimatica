@@ -3,6 +3,14 @@
     "mssql1": {
       "type": "mssql.local",
       "connectionId": "EjercicioHotelContext"
+    },
+    "mssql2": {
+      "type": "mssql.local",
+      "connectionId": "EjercicioHotelTrasladoContext"
+    },
+    "mssql3": {
+      "type": "mssql.local",
+      "connectionId": "EjercicioHotelTransporteContext"
     }
   }
 }

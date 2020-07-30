@@ -29,6 +29,11 @@ namespace EjercicioHotel
 
           
             services.AddDbContext<EjercicioHotelContext>();
+            services.AddDbContext<EjercicioHotelTrasladoContext>();
+
+            services.AddDbContext<EjercicioHotelTransporteContext>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

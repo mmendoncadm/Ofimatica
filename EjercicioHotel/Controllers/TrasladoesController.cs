@@ -68,7 +68,80 @@ namespace EjercicioHotel.Controllers
             {
                 //_context.Add(traslado);
                 //await _context.SaveChangesAsync();
-                await _context.Traslado.InsertOneAsync(traslado);
+
+                // **** Buscar el Huesped
+                // *****************************************************
+                
+                FilterDefinition<Huesped> filter1 = Builders<Huesped>.Filter.Eq("DocIdentificacion", traslado.IdHuesped);
+                var huesped = await _context.Huespedes.Find(filter1).FirstOrDefaultAsync();
+                //Si no existe lo agrega
+                if (huesped == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    await _context.Traslado.InsertOneAsync(traslado);
+
+                }
+                   
+
+                // **** Actualiza el recorrido
+                // *****************************************************
+                // *****************************************************
+                // *****************************************************
+                // *****************************************************
+                
+                // buscar todos los traslados para la fecha
+                FilterDefinition<Traslado> filter1 = Builders<Traslado>.Filter.Eq("Fecha", traslado.Fecha);
+                IEnumerable<Traslado> ListaTraslado = await _context.Traslado.Find(filter1).ToListAsync();
+                Transporte TransporteNuevo=new Transporte();
+                TransporteNuevo.Fecha = traslado.Fecha;
+                /*foreach (var t in ListaTraslado) 
+                    {
+                    TransporteNuevo.AgregarPunto(t.Punto);
+                    }
+                TransporteNuevo.ActualizarRecorrido();*/
+
+
+                //Busca el traslado 
+                FilterDefinition<Transporte> filter2 = Builders<Transporte>.Filter.Eq("Fecha", traslado.Fecha);
+                var transporte = await _context.Transporte.Find(filter2).FirstOrDefaultAsync();
+                //Si no existe lo agrega
+                if (transporte == null)
+                {
+                    await _context.Transporte.InsertOneAsync(TransporteNuevo);
+                }
+                else
+                {
+                    //Si existe lo Actualiza
+                    transporte.Km = TransporteNuevo.Km;
+                    transporte.Recorrido = TransporteNuevo.Recorrido;
+                    if (ModelState.IsValid)
+                    {
+                        try
+                        {
+                            //_context.Update(traslado);
+                            //await _context.SaveChangesAsync();
+                            await _context.Transporte.ReplaceOneAsync(filter: g => g.Id == transporte.Id, replacement: transporte);
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!TransporteExists(transporte.Id))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+                        return RedirectToAction(nameof(Index));
+                    }
+
+
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(traslado);
@@ -172,6 +245,14 @@ namespace EjercicioHotel.Controllers
             FilterDefinition<Traslado> filter = Builders<Traslado>.Filter.Eq("Id", id);
             var traslado = _context.Traslado.Find(filter).FirstOrDefaultAsync();
             return (traslado != null);
+        }
+
+        private bool TransporteExists(string id)
+        {
+            
+            FilterDefinition<Transporte> filter = Builders<Transporte>.Filter.Eq("Id", id);
+            var transporte = _context.Transporte.Find(filter).FirstOrDefaultAsync();
+            return (transporte != null);
         }
     }
 }

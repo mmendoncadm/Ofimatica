@@ -14,7 +14,7 @@
                 @Html.DisplayNameFor(model => model.Fecha)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ruta)
+                @Html.DisplayNameFor(model => model.Recorrido)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Km)
@@ -29,15 +29,20 @@
                 @Html.DisplayFor(modelItem => item.Fecha)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Ruta)
+                @Html.DisplayFor(modelItem => item.Recorrido)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Km)
             </td>
             <td>
-               
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-            
+
+                <a asp-action="Details" asp-route-id="@item.Id">Ver Puntos</a> |
+
+            </td>
+            <td>
+
+                <a asp-action="DetailsH" asp-route-id="@item.Id">Ver Huespedes</a> |
+
             </td>
         </tr>
 }

@@ -27,6 +27,22 @@ namespace EjercicioHotel.Data
             }
         }
 
+        public IMongoCollection<Transporte> Transporte
+        {
+            get
+            {
+                return BDMongo.GetCollection<Transporte>("Transporte");
+            }
+        }
+
+        public IMongoCollection<Huesped> Huespedes
+        {
+            get
+            {
+                return BDMongo.GetCollection<Huesped>("Huesped");
+            }
+        }
+
         //public DbSet<EjercicioHotel.Models.Traslado> Traslado { get; set; }
     }
 }

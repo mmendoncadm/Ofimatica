@@ -52,107 +52,128 @@ namespace EjercicioHotel.Controllers
             return View(transporte);
         }
 
+        public async Task<IActionResult> DetailsH(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            //var transporte = await _context.Transporte
+            //    .FirstOrDefaultAsync(m => m.Id == id);
+
+            FilterDefinition<Transporte> filter = Builders<Transporte>.Filter.Eq("Id", id);
+            var transporte = await _context.Transporte.Find(filter).FirstOrDefaultAsync();
+
+            if (transporte == null)
+            {
+                return NotFound();
+            }
+
+            return View(transporte);
+        }
+
         // GET: Transportes/Create
-       /* public IActionResult Create()
-        {
-            return View();
-        }
+        /* public IActionResult Create()
+         {
+             return View();
+         }
 
-        // POST: Transportes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Fecha,Ruta,Km")] Transporte transporte)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(transporte);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(transporte);
-        }
+         // POST: Transportes/Create
+         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+         [HttpPost]
+         [ValidateAntiForgeryToken]
+         public async Task<IActionResult> Create([Bind("Id,Fecha,Ruta,Km")] Transporte transporte)
+         {
+             if (ModelState.IsValid)
+             {
+                 _context.Add(transporte);
+                 await _context.SaveChangesAsync();
+                 return RedirectToAction(nameof(Index));
+             }
+             return View(transporte);
+         }
 
-        // GET: Transportes/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+         // GET: Transportes/Edit/5
+         public async Task<IActionResult> Edit(string id)
+         {
+             if (id == null)
+             {
+                 return NotFound();
+             }
 
-            var transporte = await _context.Transporte.FindAsync(id);
-            if (transporte == null)
-            {
-                return NotFound();
-            }
-            return View(transporte);
-        }
+             var transporte = await _context.Transporte.FindAsync(id);
+             if (transporte == null)
+             {
+                 return NotFound();
+             }
+             return View(transporte);
+         }
 
-        // POST: Transportes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Fecha,Ruta,Km")] Transporte transporte)
-        {
-            if (id != transporte.Id)
-            {
-                return NotFound();
-            }
+         // POST: Transportes/Edit/5
+         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+         [HttpPost]
+         [ValidateAntiForgeryToken]
+         public async Task<IActionResult> Edit(string id, [Bind("Id,Fecha,Ruta,Km")] Transporte transporte)
+         {
+             if (id != transporte.Id)
+             {
+                 return NotFound();
+             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(transporte);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TransporteExists(transporte.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(transporte);
-        }
+             if (ModelState.IsValid)
+             {
+                 try
+                 {
+                     _context.Update(transporte);
+                     await _context.SaveChangesAsync();
+                 }
+                 catch (DbUpdateConcurrencyException)
+                 {
+                     if (!TransporteExists(transporte.Id))
+                     {
+                         return NotFound();
+                     }
+                     else
+                     {
+                         throw;
+                     }
+                 }
+                 return RedirectToAction(nameof(Index));
+             }
+             return View(transporte);
+         }
 
-        // GET: Transportes/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+         // GET: Transportes/Delete/5
+         public async Task<IActionResult> Delete(string id)
+         {
+             if (id == null)
+             {
+                 return NotFound();
+             }
 
-            var transporte = await _context.Transporte
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (transporte == null)
-            {
-                return NotFound();
-            }
+             var transporte = await _context.Transporte
+                 .FirstOrDefaultAsync(m => m.Id == id);
+             if (transporte == null)
+             {
+                 return NotFound();
+             }
 
-            return View(transporte);
-        }
+             return View(transporte);
+         }
 
-        // POST: Transportes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var transporte = await _context.Transporte.FindAsync(id);
-            _context.Transporte.Remove(transporte);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }*/
+         // POST: Transportes/Delete/5
+         [HttpPost, ActionName("Delete")]
+         [ValidateAntiForgeryToken]
+         public async Task<IActionResult> DeleteConfirmed(string id)
+         {
+             var transporte = await _context.Transporte.FindAsync(id);
+             _context.Transporte.Remove(transporte);
+             await _context.SaveChangesAsync();
+             return RedirectToAction(nameof(Index));
+         }*/
 
         private bool TransporteExists(string id)
         {

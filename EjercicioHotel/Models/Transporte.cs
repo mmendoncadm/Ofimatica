@@ -17,35 +17,15 @@ namespace EjercicioHotel
         public DateTime Fecha { get; set; }
         public string Recorrido { get; set; }
         public long Km { get; set; }
+
+        public long TotalHuespedes { get; set; }
         public bool[] Puntos { get; set; }
         public Transporte() {
-            Ruta ruta = new Ruta();
-            string Rec = "";
-
-            //ruta.CrearMatrixRecorrido(Puntos);
-            Km = ruta.Distancia();
-          /*  for (int i = 0; i < ruta.Recorrido.Length; i++)
-            {
-
-                Rec = Rec + " - " + ruta.Recorrido[i].ToString();
-
-            }*/
-        }
-
-        public void AgregarPunto(int p)
-        {
-            Puntos[p]=true;
+            Ruta ruta = Ruta.getInstancia();
+            Recorrido = ruta.CadenaRecorrido;
+            Km = ruta.Km;
+      }
  
-        }
-
-        public void ActualizarRecorrido()
-        {
-            
-            
-        }
-
-
-
     }
 }
 

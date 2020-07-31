@@ -33,6 +33,8 @@ namespace EjercicioHotel
 
             services.AddDbContext<EjercicioHotelTransporteContext>();
 
+            services.AddDbContext<EjercicioHotelPuntoContext>();
+
 
         }
 

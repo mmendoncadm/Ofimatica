@@ -1,13 +1,12 @@
-﻿@model EjercicioHotel.Transporte
+﻿@model EjercicioHotel.Models.PuntoTuristico
 
 @{
     ViewData["Title"] = "Create";
 }
 
+<h1>Create</h1>
 
-
-<h4>Transporte</h4>
-
+<h4>PuntoTuristico</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,19 +18,19 @@
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Fecha" class="control-label"></label>
-                <input asp-for="Fecha" class="form-control" />
-                <span asp-validation-for="Fecha" class="text-danger"></span>
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Recorrido" class="control-label"></label>
-                <input asp-for="Recorrido" class="form-control" />
-                <span asp-validation-for="Recorrido" class="text-danger"></span>
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Km" class="control-label"></label>
-                <input asp-for="Km" class="form-control" />
-                <span asp-validation-for="Km" class="text-danger"></span>
+                <label asp-for="Ubicación" class="control-label"></label>
+                <input asp-for="Ubicación" class="form-control" />
+                <span asp-validation-for="Ubicación" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -31,9 +31,49 @@ namespace EjercicioHotel.Controllers
         }
 
         // GET: Transportes/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> IndexHuesped(string id)
         {
             if (id == null)
+            {
+                return NotFound();
+            }
+
+            // var traslado = await _context.Traslado
+            //     .FirstOrDefaultAsync(m => m.Id == id);
+
+            FilterDefinition<Transporte> filter = Builders<Transporte>.Filter.Eq("Id", id);
+            var transporte = await _context.Transporte.Find(filter).FirstOrDefaultAsync();
+
+            if (transporte == null)
+            {
+                return NotFound();
+            }
+
+
+            FilterDefinition<Traslado> filter2 = Builders<Traslado>.Filter.Eq("Fecha", transporte.Fecha);
+            var traslados = await _context.Traslado.Find(filter2).FirstOrDefaultAsync();
+
+            if (traslados == null)
+            {
+                return NotFound();
+            }
+            List<Traslado> ListaTraslado = _context.Traslado.Find(filter2).ToList();
+
+            List<Huesped> ListaHuespedes = null;
+            foreach (Traslado t in ListaTraslado)
+            {
+                FilterDefinition<Huesped> filter3 = Builders<Huesped>.Filter.Eq("DocIdentificacion", t.IdHuesped);
+                var huesped = new Huesped();
+                huesped = await _context.Huespedes.Find(filter3).FirstOrDefaultAsync();
+                ListaHuespedes.Add(huesped);
+            }
+           
+           return View(ListaHuespedes);
+        }
+
+      /*  public async Task<IActionResult> IndexPuntos(string id)
+        {
+           /* if (id == null)
             {
                 return NotFound();
             }
@@ -49,29 +89,8 @@ namespace EjercicioHotel.Controllers
                 return NotFound();
             }
 
-            return View(transporte);
-        }
-
-        public async Task<IActionResult> DetailsH(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            //var transporte = await _context.Transporte
-            //    .FirstOrDefaultAsync(m => m.Id == id);
-
-            FilterDefinition<Transporte> filter = Builders<Transporte>.Filter.Eq("Id", id);
-            var transporte = await _context.Transporte.Find(filter).FirstOrDefaultAsync();
-
-            if (transporte == null)
-            {
-                return NotFound();
-            }
-
-            return View(transporte);
-        }
+            //return View(transporte);
+        }*/
 
         // GET: Transportes/Create
         /* public IActionResult Create()
@@ -144,7 +163,7 @@ namespace EjercicioHotel.Controllers
                  return RedirectToAction(nameof(Index));
              }
              return View(transporte);
-         }
+         }*/
 
          // GET: Transportes/Delete/5
          public async Task<IActionResult> Delete(string id)
@@ -154,9 +173,13 @@ namespace EjercicioHotel.Controllers
                  return NotFound();
              }
 
-             var transporte = await _context.Transporte
-                 .FirstOrDefaultAsync(m => m.Id == id);
-             if (transporte == null)
+             //var transporte = await _context.Transporte
+             //    .FirstOrDefaultAsync(m => m.Id == id);
+
+            FilterDefinition<Transporte> filter = Builders<Transporte>.Filter.Eq("Id", id);
+            var transporte = await _context.Transporte.Find(filter).FirstOrDefaultAsync();
+
+            if (transporte == null)
              {
                  return NotFound();
              }
@@ -169,11 +192,14 @@ namespace EjercicioHotel.Controllers
          [ValidateAntiForgeryToken]
          public async Task<IActionResult> DeleteConfirmed(string id)
          {
-             var transporte = await _context.Transporte.FindAsync(id);
-             _context.Transporte.Remove(transporte);
-             await _context.SaveChangesAsync();
-             return RedirectToAction(nameof(Index));
-         }*/
+            //var transporte = await _context.Transporte.FindAsync(id);
+            //_context.Transporte.Remove(transporte);
+            //await _context.SaveChangesAsync();
+            FilterDefinition<Transporte> data = Builders<Transporte>.Filter.Eq("Id", id);
+            await _context.Transporte.DeleteOneAsync(data);
+
+            return RedirectToAction(nameof(Index));
+         }
 
         private bool TransporteExists(string id)
         {

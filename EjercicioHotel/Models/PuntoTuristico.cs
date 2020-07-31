@@ -9,7 +9,7 @@ namespace EjercicioHotel.Models
         [Key]
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string id { get; set; }
+        public string Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
 

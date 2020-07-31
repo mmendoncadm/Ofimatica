@@ -47,10 +47,15 @@ namespace EjercicioHotel.Controllers
             {
                 return NotFound();
             }
-
+            //FilterDefinition<Huesped> filter4 = Builders<Huesped>.Filter.Eq("DocIdentificacion", traslado.IdHuesped);
+            //var huesped = await _context.Huespedes.Find(filter4).FirstOrDefaultAsync();
+            //traslado.huesped.Nombre = huesped.Nombre;
+            //traslado.huesped.Apellido = huesped.Apellido;
+            
             return View(traslado);
         }
 
+        
         // GET: Trasladoes/Create
         public IActionResult Create()
         {
@@ -77,7 +82,7 @@ namespace EjercicioHotel.Controllers
                 //Si no existe lo agrega
                 if (huesped == null)
                 {
-                    return NotFound();
+                   // return NotFound();
                 }
                 else
                 {
@@ -93,8 +98,8 @@ namespace EjercicioHotel.Controllers
                 // *****************************************************
                 
                 // buscar todos los traslados para la fecha
-                FilterDefinition<Traslado> filter1 = Builders<Traslado>.Filter.Eq("Fecha", traslado.Fecha);
-                IEnumerable<Traslado> ListaTraslado = await _context.Traslado.Find(filter1).ToListAsync();
+                FilterDefinition<Traslado> filter2 = Builders<Traslado>.Filter.Eq("Fecha", traslado.Fecha);
+                IEnumerable<Traslado> ListaTraslado = await _context.Traslado.Find(filter2).ToListAsync();
                 Transporte TransporteNuevo=new Transporte();
                 TransporteNuevo.Fecha = traslado.Fecha;
                 /*foreach (var t in ListaTraslado) 
@@ -105,8 +110,8 @@ namespace EjercicioHotel.Controllers
 
 
                 //Busca el traslado 
-                FilterDefinition<Transporte> filter2 = Builders<Transporte>.Filter.Eq("Fecha", traslado.Fecha);
-                var transporte = await _context.Transporte.Find(filter2).FirstOrDefaultAsync();
+                FilterDefinition<Transporte> filter3 = Builders<Transporte>.Filter.Eq("Fecha", traslado.Fecha);
+                var transporte = await _context.Transporte.Find(filter3).FirstOrDefaultAsync();
                 //Si no existe lo agrega
                 if (transporte == null)
                 {
@@ -115,8 +120,8 @@ namespace EjercicioHotel.Controllers
                 else
                 {
                     //Si existe lo Actualiza
-                    transporte.Km = TransporteNuevo.Km;
-                    transporte.Recorrido = TransporteNuevo.Recorrido;
+                   // transporte.Km = TransporteNuevo.Km;
+                   // transporte.Recorrido = TransporteNuevo.Recorrido;
                     if (ModelState.IsValid)
                     {
                         try
@@ -226,7 +231,7 @@ namespace EjercicioHotel.Controllers
         // POST: Trasladoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             //var traslado = await _context.Traslado.FindAsync(id);
             //_context.Traslado.Remove(traslado);

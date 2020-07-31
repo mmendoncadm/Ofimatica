@@ -4,7 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Transportes</h1>
+<h1>
+    Recorridos
+</h1>
+<p> <a class="nav-link text-dark" asp-area="" asp-controller="PuntoTuristicoes" asp-action="Index">Puntos Turisticos</a> </p>
 
 
 <table class="table">
@@ -23,7 +26,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+            {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Fecha)
@@ -36,15 +40,14 @@
             </td>
             <td>
 
-                <a asp-action="Details" asp-route-id="@item.Id">Ver Puntos</a> |
+                <a asp-controller="Transportes" asp-action="IndexHuesped" >Ver Huespedes</a> |
 
             </td>
             <td>
-
-                <a asp-action="DetailsH" asp-route-id="@item.Id">Ver Huespedes</a> |
-
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
+
         </tr>
-}
+            }
     </tbody>
 </table>

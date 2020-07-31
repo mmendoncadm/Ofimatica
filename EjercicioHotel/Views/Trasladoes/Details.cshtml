@@ -1,5 +1,6 @@
 ﻿@model EjercicioHotel.Models.Traslado
 
+,
 @{
     ViewData["Title"] = "Details";
 }
@@ -27,6 +28,18 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.IdHuesped)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.huesped.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.huesped.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.huesped.Apellido)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.huesped.Apellido)
         </dd>
     </dl>
 </div>
